@@ -2,6 +2,7 @@
 
 #include "button.h"
 #include "led.h"
+#include "pir.h"
 
 
 void setup()
@@ -10,6 +11,7 @@ void setup()
 
     buttonInit();
     ledInit();
+    pirInit();
 
     Serial.println("System started");
 }
@@ -17,17 +19,25 @@ void setup()
 
 void loop()
 {
+    // Button event
     if (buttonPressed())
     {
         ledToggle();
 
         if (ledIsOn())
         {
-            Serial.println("LED ON");
+            Serial.println("Button: LED ON");
         }
         else
         {
-            Serial.println("LED OFF");
+            Serial.println("Button: LED OFF");
         }
+    }
+
+
+    // PIR event
+    if (pirMotionDetected())
+    {
+        Serial.println("Motion detected!");
     }
 }
