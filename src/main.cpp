@@ -1,18 +1,33 @@
 #include <Arduino.h>
 
-// put function declarations here:
-int myFunction(int, int);
+#include "button.h"
+#include "led.h"
 
-void setup() {
-  // put your setup code here, to run once:
-  int result = myFunction(2, 3);
+
+void setup()
+{
+    Serial.begin(115200);
+
+    buttonInit();
+    ledInit();
+
+    Serial.println("System started");
 }
 
-void loop() {
-  // put your main code here, to run repeatedly:
-}
 
-// put function definitions here:
-int myFunction(int x, int y) {
-  return x + y;
+void loop()
+{
+    if (buttonPressed())
+    {
+        ledToggle();
+
+        if (ledIsOn())
+        {
+            Serial.println("LED ON");
+        }
+        else
+        {
+            Serial.println("LED OFF");
+        }
+    }
 }
